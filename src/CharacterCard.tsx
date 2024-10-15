@@ -1,11 +1,12 @@
 import { Stack } from "@mui/material";
+import { Link } from "react-router-dom";
 import { Character } from "./character";
 
 export function CharacterCard({ character }
     : { character: Character }
 ) {
     return <Stack>
-        <h2>{character.name}</h2>
+        <h2><Link to={`/character/${character.id}`}>{character.name}</Link></h2>
         <p><strong>Rôle publique:</strong> {character.publicRole}</p>
         <p><strong>Rôle caché:</strong> {character.hiddenRole}</p>
         <p><strong>Mobile:</strong> {character.mobile}</p>

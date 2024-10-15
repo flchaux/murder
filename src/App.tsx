@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Character } from './character';
-import { Layer, Stage } from 'react-konva';
-import { CharacterShape } from './CharacterShape';
-import { ThemeShape } from './ThemeShape';
 import { Theme } from './theme';
-import { Link } from './Link';
 import { Visualizer } from './Visualizer';
 import Airtable, { Base } from 'airtable';
-import { Position, PositionMap } from './position';
+import { PositionMap } from './position';
 import { Tab, Tabs } from '@mui/material';
 import { Characters } from './Characters';
+import { useAirtable } from './useAirtable';
 
 const line = 3;
 const column = 4;
 const themeSpacing = 300;
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -23,13 +20,10 @@ function App() {
   const [themes, setThemes] = useState<Theme[]>([]);
 
   const [objectPositions, setObjectPositions] = useState<PositionMap>({});
+  const base = useAirtable();
 
   useEffect(() => {
     (async () => {
-      const airtable = new Airtable({
-        apiKey: process.env.REACT_APP_AIRTABLE_TOKEN
-      })
-      const base = new Base(airtable, process.env.REACT_APP_AIRTABLE_BASE!);
       const themesResults = await base.table("Themes").select().all();
       const charactersResults = await base.table("Characters").select().all();
       const links = await base.table("CharacterLinks").select().all();
@@ -45,7 +39,7 @@ function App() {
           name: character.get("Name") as string,
           themes: character.get("Theme") as string[] ?? [],
           publicRole: character.get("Role publique") as string,
-          hiddenRole: character.get("Role caché") as string,
+          hiddenRole: character.get("Secret") as string,
           description: character.get("Description") as string,
           mobileType: character.get("Type de mobile") as string,
           mobile: character.get("Mobile") as string,
@@ -103,20 +97,21 @@ function App() {
   }, [themes, characters]);
   const [tab, setTab] = useState(0);
 
+
   return <>{!loading &&
     (<div>
       <Tabs value={tab} onChange={(e, newTab) => setTab(newTab)}>
-        <Tab label="Graph" />
         <Tab label="Characters" />
+        <Tab label="Graph" />
       </Tabs>
-      {tab === 0 && (<Visualizer
+      {tab === 0 && (<Characters
+        characters={characters}
+      />)}
+      {tab === 1 && (<Visualizer
         characters={characters}
         themes={themes}
         objectPositions={objectPositions}
         setObjectPositions={setObjectPositions}
-      />)}
-      {tab === 1 && (<Characters
-        characters={characters}
       />)}
     </div>)}</>;
 }
