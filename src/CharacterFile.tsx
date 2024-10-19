@@ -60,7 +60,6 @@ export function CharacterFile({ character }: {
     return (
         <div
             style={{
-                width: "100vh",
                 backgroundColor: "#1b1a1e",
             }}>
             <div style={styles.cardContainer}>
