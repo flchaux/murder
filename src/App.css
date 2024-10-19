@@ -23,6 +23,10 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+p{
+    letter-spacing: "1px";
+    line-height: 1.6;
+}
 
 .App-link {
   color: #61dafb;
@@ -40,3 +44,18 @@
 p {
   margin: 2px;
 }
+
+@font-face {
+  font-family: 'VintageFaith';
+  src: url('./VintageFaith.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OldNewspaperTypes';
+  src: url('./OldNewspaperTypes.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+

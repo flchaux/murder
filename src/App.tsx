@@ -8,6 +8,7 @@ import { PositionMap } from './position';
 import { Tab, Tabs } from '@mui/material';
 import { Characters } from './Characters';
 import { useAirtable } from './useAirtable';
+import { Encoder } from './Encoder';
 
 const line = 3;
 const column = 4;
@@ -103,6 +104,7 @@ function App() {
       <Tabs value={tab} onChange={(e, newTab) => setTab(newTab)}>
         <Tab label="Characters" />
         <Tab label="Graph" />
+        <Tab label="Encoder" />
       </Tabs>
       {tab === 0 && (<Characters
         characters={characters}
@@ -113,6 +115,7 @@ function App() {
         objectPositions={objectPositions}
         setObjectPositions={setObjectPositions}
       />)}
+      {tab === 2 && (<Encoder />)}
     </div>)}</>;
 }
 
