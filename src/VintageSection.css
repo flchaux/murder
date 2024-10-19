@@ -11,6 +11,7 @@
   
   .vintage-svg-container {
     position: relative;
+    
     width: 100%;
     height: 300px; /* Ajuste la hauteur selon tes besoins */
   }

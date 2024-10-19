@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardHeader, CardMedia, Stack } from "@mui/material";
+import { Box, Card, CardContent, CardHeader, CardMedia, Stack, useMediaQuery, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import React from "react";
 import { Character } from "./character";
@@ -8,32 +8,17 @@ import VintageSection from "./VintageSection";
 const lightColor = "#dfd7ce";
 const styles = {
     cardContainer: {
-        width: "230mm",
         minHeight: "297mm",
         margin: "auto",
         padding: "5mm",
+        boxSizing: "border-box",
         fontFamily: "OldNewspaperTypes",
         color: lightColor,
-    } as React.CSSProperties,
-    header: {
-        backgroundImage: "url('/title.svg')",
-        backgroundSize: "cover",
-        height: 445,
-        paddingTop: 72,
-        letterSpacing: "default",
-    },
-    name: {
-        textAlign: "center",
-        fontSize: "2rem",
-        marginBottom: "15px",
-        paddingBottom: "10px",
-        fontFamily: "OldNewspaperTypes",
-        fontWeight: "initial",
     } as React.CSSProperties,
     role: {
         textAlign: "center",
         fontSize: "2.5rem",
-        marginTop: 65,
+        marginTop: 40,
         color: lightColor,
         fontWeight: "initial",
         fontFamily: "VintageFaith",
@@ -56,30 +41,56 @@ const styles = {
 export function CharacterFile({ character }: {
     character: CharacterFileParams
 }) {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const { publicRole, name, picture, summary, secret, history, personalGoal, comment, links } = character;
     return (
         <div
             style={{
                 backgroundColor: "#1b1a1e",
             }}>
-            <div style={styles.cardContainer}>
-                <Grid container>
-                    <Grid container alignItems="center" justifyContent="center">
+            <div style={{ ...styles.cardContainer, width: isMobile ? "100%" : "210mm" }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: isMobile ? 'column' : 'row', // Column for mobile, row for desktop
+                        justifyContent: 'stretch',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Box>
                         <Box sx={{
                             backgroundImage: "url('/background.svg')",
                             backgroundSize: "100% 100%",
-                            marginRight: 2,
+                            marginRight: isMobile ? 0 : 2,
                         }}>
                             <img style={{
-                                maxWidth: 240,
+                                maxWidth: isMobile ? '100%' : 240,
                                 boxSizing: "border-box",
                                 // border: "double 10px #dfd7ce",
                                 padding: 8,
                             }} src={picture} />
                         </Box>
-                    </Grid>
-                    <Grid size="grow" style={styles.header}>
-                        <h2 style={styles.name}>{name}</h2>
+                    </Box>
+                    <Box style={{
+                        backgroundImage: "url('/title.svg')",
+                        backgroundSize: "auto 100%",
+                        backgroundPosition: "center",
+                        paddingTop: 64,
+                        marginTop: isMobile ? 20 : 0,
+                        paddingBottom: 36,
+                        marginBottom: 36,
+                        letterSpacing: "default",
+                        width: "100%",
+                    }}>
+                        <h2 style={{
+                            textAlign: "center",
+                            fontSize: "2rem",
+                            marginBottom: "15px",
+                            paddingBottom: "10px",
+                            fontFamily: "OldNewspaperTypes",
+                            fontWeight: "initial",
+                        }}>{name}</h2>
                         <h1 style={styles.role}>{publicRole}</h1>
                         <svg viewBox="0 0 500 100" style={styles.subTitle}>
                             <path id="curve" d="M 0,-50 Q 250,200 500,-50" fill="transparent" />
@@ -89,8 +100,8 @@ export function CharacterFile({ character }: {
                                 </textPath>
                             </text>
                         </svg>
-                    </Grid>
-                </Grid>
+                    </Box>
+                </Box>
                 <h2 style={styles.secret}>Secret : {secret}</h2>
                 <VintageSection>
                     <h3>Ton personnage</h3>
@@ -108,7 +119,7 @@ export function CharacterFile({ character }: {
                     <h3>Les personnes que tu connais à la soirée</h3>
                     <Grid container direction="row" spacing={1} sx={{ marginBottom: 2 }}>
                         {links.map((link) => (
-                            <Grid size={6}>
+                            <Grid size={isMobile ? 12 : 6}>
                                 <Card sx={{ minHeight: "100%", fontSize: "0.8rem", backgroundColor: "inherit", color: "inherit", borderColor: lightColor }}>
                                     <CardHeader title={link.anonymous ? "Anonyme" : link.name}
                                         titleTypographyProps={{ fontFamily: "OldNewspaperTypes", fontSize: "1.1rem" }} />
