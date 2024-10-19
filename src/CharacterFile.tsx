@@ -142,14 +142,16 @@ export function CharacterFile({ character }: {
                 </div>
                 <VintageSection>
                     <h3>Quelques mots du Maître du jeu</h3>
-                    <p>Il est probable que des évènements viennent chambouler la soirée ! C'est une Murder Party :)</p>
-                    <p>Si vous êtes accusé, vous devez vous défendre en utilisant les informations et les secrets que vous connaissez pour vous disculper.
-                        <br />Si vous soupçonnez quelqu'un d'être le coupable, n'hésitez pas à en discuter avec les autres invités. Selon l'opinion générale sur l'accusé, la foule pourra le confronter publiquement.
-                        <br />Vos priorités sont les suivantes :</p>
+                    <p>Il est probable que des évènements viennent chambouler la soirée ! C'est une Murder Party après tout !</p>
+                    <p>
+                        Si tu es accusé, défends-toi en t'appuyant sur les informations et secrets que tu connais pour prouver ton innocence ou attiser la suspcition sur un autre joueur.
+                        <br />Si tu soupçonnes quelqu'un, n'hésites pas à en discuter avec les autres invités. Selon l'opinion générale, la foule pourra le confronter publiquement.
+                        <br />Tes priorités sont les suivantes :
+                    </p>
                     <ul>
                         <li>Éviter d'être accusé à tort</li>
                         <li>Atteindre vos objectifs personnels</li>
-                        <li>Aider à démasquer le coupable si cela est dans votre intérêt :)</li>
+                        <li>Aider à démasquer le coupable si cela est dans ton intérêt :)</li>
                     </ul>
                     <br />
                     <p>{comment}</p>
