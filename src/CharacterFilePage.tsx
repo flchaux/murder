@@ -35,6 +35,7 @@ export function CharacterFilePage() {
                 personalGoal: character.get("PersonalGoals") as string,
                 comment: character.get("Comment") as string,
                 links: links,
+                message: character.get("Message") as string,
             });
         })();
     }, []);

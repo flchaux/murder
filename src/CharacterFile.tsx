@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardHeader, CardMedia, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, CardMedia, Dialog, DialogActions, Stack, useMediaQuery, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import React from "react";
 import { Character } from "./character";
@@ -43,12 +43,28 @@ export function CharacterFile({ character }: {
 }) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const { publicRole, name, picture, summary, secret, history, personalGoal, comment, links } = character;
+    const { publicRole, name, picture, summary, secret, history, personalGoal, comment, links, message } = character;
+    const [messageOpen, setMessageOpen] = React.useState<boolean>(message != undefined && message.length > 0);
     return (
         <div
             style={{
                 backgroundColor: "#1b1a1e",
             }}>
+            {message && message.length && <Dialog sx={{
+                color: "#1b1a1e",
+                fontFamily: "OldNewspaperTypes",
+            }} open={messageOpen} onClose={() => setMessageOpen(false)}>
+                <Stack spacing={2} sx={{ p: 5, }}>
+                    {message && <p dangerouslySetInnerHTML={{ __html: message.replace(/(?:\r\n|\r|\n)/g, '<br />') }}></p>}
+                </Stack>
+                <DialogActions>
+                    <Button sx={{
+                        backgroundColor: lightColor,
+                        color: "#1b1a1e",
+                        fontFamily: "OldNewspaperTypes",
+                    }} onClick={() => setMessageOpen(false)}>Bien compris</Button>
+                </DialogActions>
+            </Dialog>}
             <div style={{ ...styles.cardContainer, width: isMobile ? "100%" : "210mm" }}>
                 <Box
                     sx={{
@@ -150,11 +166,12 @@ export function CharacterFile({ character }: {
                     </p>
                     <ul>
                         <li>Éviter d'être accusé à tort</li>
-                        <li>Atteindre vos objectifs personnels</li>
+                        <li>Atteindre tes objectifs personnels</li>
                         <li>Aider à démasquer le coupable si cela est dans ton intérêt :)</li>
                     </ul>
                     <br />
                     <p>{comment}</p>
+                    {message && <p dangerouslySetInnerHTML={{ __html: message.replace(/(?:\r\n|\r|\n)/g, '<br />') }}></p>}
                 </VintageSection>
             </div></div>
     );

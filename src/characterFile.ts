@@ -8,5 +8,5 @@ export interface CharacterFileParams {
     personalGoal: string;
     comment: string;
     links: { description: string, picture: string, name: string, anonymous: boolean; }[];
-
+    message: string | undefined;
 }
